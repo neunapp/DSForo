@@ -1,21 +1,63 @@
-"""dsforo URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/2.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
+from django.conf.urls import url, include
 from django.contrib import admin
-from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
+#
+from django.contrib.sitemaps.views import sitemap
+#
+#
+from django.conf.urls import handler404, handler500
+#
+# from applications.home.sitemap import (
+#     CanchaSitemap,
+#     DistritoSitemap,
+#     ZoneSitemap,
+#     Sitemap
+# )
+#
+from applications.home import views
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
-]
+urlpatterns_main = [
+    url(r'^admin/', admin.site.urls),
+    #urls para home
+    # url(r'^', include('applications.home.urls')),
+    # #urls para cancha
+    # url(r'^', include('applications.cancha.urls')),
+    # #urls para zona
+    # url(r'^', include('applications.zona.urls')),
+    # #urls para museo
+    # url(r'^', include('applications.museo.urls')),
+    # #urls para users
+    # url(r'^', include('applications.users.urls')),
+
+    #url para editor de texto
+    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+#objeto site map que genera xml
+# sitemaps = {
+#     'site':Sitemap(
+#         [
+#             'home_app:index'
+#         ]
+#     ),
+#     'cancha': CanchaSitemap,
+#     'zona': ZoneSitemap,
+#     'distrito': DistritoSitemap,
+# }
+#
+# #urls para sitemap
+# urlpatterns_sitemap = [
+#     #sitemap
+#     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
+#     name='django.contrib.sitemaps.views.sitemap')
+# ]
+
+#url prncipal
+# urlpatterns = urlpatterns_main + urlpatterns_sitemap
+
+urlpatterns = urlpatterns_main
+
+# handler404 = views.Error404View.as_view()
+# handler500 = views.Error500View.as_view()

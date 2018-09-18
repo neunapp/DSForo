@@ -63,14 +63,16 @@ target/
 
 #ruta de disenio
 
-design/*
-
-#dsforo/manage.py
+dsforo/manage.py
 dsforo/secrets.json
 
 dsforo/media/*
 
 dsforo/applications/users/migrations/*
+dsforo/applications/entradas/migrations/*
+dsforo/applications/home/migrations/*
+dsforo/applications/miscelanea/migrations/*
+dsforo/applications/tiket/migrations/*
 
 *migrations/*
 !__init__.py
