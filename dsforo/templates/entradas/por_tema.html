@@ -1,0 +1,65 @@
+{% extends "home/base_home.html" %}
+
+{% load staticfiles %}
+
+{% block title %} {{tema.seoName}} {% endblock %}
+
+{% block description %} {{tema.description}} {% endblock description %}
+
+{% block content %}
+  {% include "includes/header.html" %}
+
+  <div class="grid-container">
+    <div class="grid-x grid-margin-x ">
+      <div class="cell small-12 medium-6 large-3">
+        <div class="ms2-bt5">
+          <button class="ms2-bt5__button  color-ct-c11">
+            <i class="fas fa-edit ms2-bt5__button__icon"></i>
+            {% if tema.tipo == '2' %}
+              <a href="{% url 'tiket_app:add_sugerencia' %}" class="ms2-bt5__button__btn">SUGERIR NUEVA GUIA</a>
+            {% else %}
+              <a href="{% url 'entradas_app:entrada_add' tema.id %}" class="ms2-bt5__button__btn">PROPONER NUEVO TEMA</a>
+            {% endif %}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-x">
+      {% for t in entradas  %}
+        <div class="cell ms2-card7" onclick="location.href='{% url 'entradas_app:entrada_detalle' t.slug %}';">
+          <div class="ms2-card7__left">
+            <div class="ms2-card7__left__1">
+              {% if t.user.image %}
+                <img src="{{t.user.image.url}}" class="ms2-card7__left__1__item">
+              {% else %}
+                <img src="{% static 'img/user.png' %}" class="ms2-card7__left__1__item">
+              {% endif %}
+            </div>
+            <div class="ms2-card7__left__2">
+              <h4 class="ms2-card7__left__2__title color-ct-c20 ">{{t.title}}</h4>
+              <h5 class="ms2-card7__left__2__name color-ct-c20">{{t.user.email}}</h5>
+            </div>
+          </div>
+          <div class="ms2-card7__right">
+            {% if tema.tipo == '0' %}
+              <div class="ms2-card7__right__1">
+                <i class="far fa-comment ms2-card7__right__1__icon color-ct-c9 "></i>
+                <h5 class="ms2-card7__right__1__num color-ct-c20">{{t.comments}}</h5>
+              </div>
+            {% else %}
+              <div class="ms2-card7__right__1">
+                <i class="fas fa-chart-area ms2-card7__right__1__icon color-ct-c9 "></i>
+                <h5 class="ms2-card7__right__1__num color-ct-c20">{{t.vists}}</h5>
+              </div>
+            {% endif %}
+            <div class="ms2-card7__right__2">
+              <h5 class="ms2-card7__right__2__date color-ct-c20">{{t.created|date:"M d, Y"}}</h5>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% include "includes/footer.html" %}
+{% endblock content %}

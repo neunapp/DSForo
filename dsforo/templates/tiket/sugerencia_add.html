@@ -1,0 +1,79 @@
+{% extends "tiket/base_tiket.html" %}
+
+{% load staticfiles %}
+
+{% block title %} Enviar Sugerencia a DeporStart {% endblock %}
+
+{% block content %}
+  {% include "includes/header.html" %}
+  <div class="grid-container" style="margin-top: 1em;">
+    <div class="grid-x align-center">
+      <form class="cell small-12 medium-10 large-8 grid-x grid-margin-x align-center" enctype="multipart/form-data" method="post">{% csrf_token %}
+        <h3 class="cell ms-h-h2">Quiero Enviar Una Sugerencia</h3>
+        <div class="cell small-12 large-8">
+          <div class="ms-in-1">
+            <label class="ms-p-p1 color-ct-c1">Correo Electrónico:</label>
+            {{form.email}}
+            <i class="fas fa-envelope ms-in-1__icon"></i>
+          </div>
+        </div>
+        <div class="cell small-12 large-8">
+          <div class="ms-in-1">
+            <label class="ms-p-p1 color-ct-c1">Nombres:</label>
+            {{form.fullname}}
+            <i class="fas fa-address-card ms-in-1__icon"></i>
+          </div>
+        </div>
+        <div class="cell small-12 large-8">
+          <div class="ms-in-1">
+            <label class="ms-p-p1 color-ct-c1">Torneo o Equipo:</label>
+            {{form.description}}
+            <i class="fas fa-shield-alt ms-in-1__icon"></i>
+          </div>
+        </div>
+        <div class="cell small-12 large-8">
+          <div class="ms-in-1">
+            <label class="ms-p-p1 color-ct-c1">Sugerencia:</label>
+            {{form.suggestion}}
+            <i class="fas fa-comment ms-in-1__icon"></i>
+          </div>
+        </div>
+        <div class="cell small-12 large-8">
+          <div class="ms-in-1">
+            <label class="ms-p-p1 color-ct-c1">Ingrese el codigo:</label>
+            {{form.captcha}}
+          </div>
+        </div>
+        {% if form.errors %}
+          <p class="cell ms-a-a1">{{form.errors}}</spam>
+        {% endif %}
+        <div class="cell small-12 large-7" style="margin-bottom: 3em;">
+          <div class="ms-bt-bt1">
+            <button type="submit" class="ms-bt-bt1__btn color-bg-b4 color-ct-white">Enviar Sugerencia</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="cell small-12 medium-10 large-4 grid-x">
+        {% for t in populares  %}
+          <div class="grid-x grid-margin-x">
+            <div class="cell ms2-card7" onclick="location.href='{% url 'entradas_app:entrada_detalle' t.slug %}';">
+              <div class="ms2-card7__left">
+                <div class="ms2-card7__left__2">
+                  <h4 class="ms2-card7__left__2__title color-ct-c20 " style="font-size:16px;">{{t.title}}</h4>
+                  <h5 class="ms2-card7__left__2__name color-ct-c20">{{t.user.email}}</h5>
+                </div>
+              </div>
+              <div class="ms2-card7__right">
+                <div class="ms2-card7__right__2">
+                  <h5 class="ms2-card7__right__2__date color-ct-c20">{{t.created|date:"M d, Y"}}</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% include "includes/footer.html" %}
+{% endblock content %}

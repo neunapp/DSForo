@@ -1,4 +1,5 @@
 {% load  staticfiles %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -15,7 +16,7 @@
   <meta property="og:image:height" content="320">
   <meta name="keywords" content="{% block tags %} {% endblock tags %}">
   <link rel="alternate" hreflang="es"/>
-  <link rel="icon" type="image/ico" href="{% static 'img/ap_icono.ico' %}" />
+  <link rel="icon" type="image/ico" href="{% static 'img/ds_ico.png' %}" />
   {% block css %}{% endblock css %}
 </head>
 <body>

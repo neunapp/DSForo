@@ -39,10 +39,12 @@ THIRD_PARTY_APPS = (
     'sorl.thumbnail',
     'ckeditor',
     'ckeditor_uploader',
+    'captcha',
 )
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

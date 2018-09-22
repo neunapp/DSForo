@@ -1,0 +1,80 @@
+{% extends "users/base_users.html" %}
+
+{% load staticfiles %}
+
+{% block title %} Usuario Comunidad DeporStart {% endblock %}
+
+{% block content %}
+  {% include "includes/header.html" %}
+  <div class="grid-container">
+    <div class="grid-x grid-margin-x align-center" style="margin-top: 1em;">
+      <div class="cell small-12 medium-8 large-4 grid-x grid-margin-x align-center">
+        <div class="cell small-3">
+          <div class="ms-bt-bt2" onclick="location.href='{% url 'users_app:panel' %}';" title="Foro">
+            <button type="button" name="button" class="ms-bt-bt2__btn color-bg-b8 color-ct-white">
+              <i class="fas fa-users"></i>
+            </button>
+          </div>
+        </div>
+        <div class="cell small-3">
+          <div class="ms-bt-bt2" title="Tiket" onclick="location.href='{% url 'users_app:panel-tikets' %}';">
+            <button type="button" name="button" class="ms-bt-bt2__btn color-bg-b4 color-ct-white">
+              <i class="fas fa-ticket-alt"></i>
+            </button>
+          </div>
+        </div>
+        <div class="cell small-3">
+          <div class="ms-bt-bt2" title="Mis Datos" onclick="location.href='{% url 'users_app:update' user.id %}';">
+            <button type="button" name="button" class="ms-bt-bt2__btn color-bg-b15 color-ct-white">
+              <i class="fas fa-user"></i>
+            </button>
+          </div>
+        </div>
+        <div class="cell small-3">
+          <div  class="ms-bt-bt2" onclick="location.href='{% url 'users_app:logout' %}';" title="Cerrar Sesion">
+            <button type="button" name="button" class="ms-bt-bt2__btn color-bg-b19 color-ct-white">
+              <i class="fas fa-sign-out-alt"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="cell grid-x grid-margin-x align-center" style="margin-top: 1em;">
+        <a href="{% url 'tiket_app:add_tiket' %}" class="cell ms-a-a3 color-ct-c1 ms-p-p2 ms-c">Enviar Tiket a Soporte</a>
+        {% for t in tikets  %}
+          <div class="cell ms2-card7">
+            <div class="ms2-card7__left">
+              <div class="ms2-card7__left__1">
+                {% if t.user.image %}
+                  <img src="{{t.user.image.url}}" class="ms2-card7__left__1__item">
+                {% else %}
+                  <img src="{% static 'img/user.png' %}" class="ms2-card7__left__1__item">
+                {% endif %}
+              </div>
+              <div class="ms2-card7__left__2" data-open="{{t.id}}ds">
+                <h4 class="ms2-card7__left__2__title color-ct-c20 ">{{t.subject}}</h4>
+                <h5 class="ms2-card7__left__2__name color-ct-c20">{{t.user.email}}</h5>
+              </div>
+            </div>
+            <div class="ms2-card7__right">
+              <div class="ms2-card7__right__2">
+                <h5 class="ms2-card7__right__2__date color-ct-c20">{{t.created|date:"M d, Y"}}</h5>
+              </div>
+              <div class="ms2-card7__right__1" onclick="location.href='{% url 'tiket_app:tiket_delete' t.id %}';">
+                <i class="fas fa-trash-alt ms2-card7__right__1__icon color-ct-c2"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="reveal" id="{{t.id}}ds" data-reveal>
+            <p>{{t.message}}</p>
+            <button class="close-button" data-close aria-label="Close modal" type="button">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% include "includes/footer.html" %}
+{% endblock content %}

@@ -25,6 +25,7 @@ class Tiket(TimeStampedModel):
     tipo = models.CharField('Tipo de Tiket', max_length=2, choices=TYPE_TIKET)
     subject = models.CharField('Asunto', max_length=120)
     message = models.TextField('Mensaje')
+    anulate = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'Tiket'

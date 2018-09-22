@@ -1,0 +1,70 @@
+{% extends "entradas/base_entradas.html" %}
+
+{% load staticfiles %}
+
+{% block title %} Proponer nuevo tema a la comunidad DeporStart{% endblock %}
+
+{% block description %} Contribuye con la comunidad Deporstart, y apoya a que se impulse el deporte. {% endblock description %}
+
+{% block content %}
+  {% include "includes/header.html" %}
+  <div class="grid-container">
+    <div class="grid-x grid-margin-x align-center" style="margin-top: 1em;">
+      <form class="cell small-12 medium-10 large-8 grid-x grid-margin-x align-center" enctype="multipart/form-data" method="post">{% csrf_token %}
+        <h3 class="cell ms-h-h2">Publicar Nuevo Tema En La Comunidad</h3>
+        <div class="cell small-12 large-8">
+          <div class="ms-in-1">
+            <label class="ms-p-p1 color-ct-c1">Titulo del Tema:</label>
+            {{form.title}}
+            <i class="fas fa-heading ms-in-1__icon"></i>
+          </div>
+        </div>
+        <div class="cell small-12 large-8">
+          <div class="ms-in-1">
+            <label class="ms-p-p1 color-ct-c1">Resumen corto:</label>
+            {{form.resume}}
+            <i class="fas fa-file-alt ms-in-1__icon"></i>
+          </div>
+        </div>
+        <div class="cell small-12 large-8">
+          <div class="ms-in-1">
+            <label class="ms-p-p1 color-ct-c1">Contenido del Tema:</label>
+            {{form.content}}
+          </div>
+        </div>
+        <div class="cell small-12 large-8">
+          <div class="ms-in-1">
+            <label class="ms-p-p1 color-ct-c1">Ingrese el codigo:</label>
+            {{form.captcha}}
+          </div>
+        </div>
+        <div class="cell small-12 large-7" style="margin-bottom: 3em;">
+          <div class="ms-bt-bt1">
+            <button type="submit" class="ms-bt-bt1__btn color-bg-b4 color-ct-white">Publicar Tema</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="cell small-12 medium-10 large-4">
+        <div class="grid-x grid-margin-x">
+          {% for t in populares  %}
+            <div class="cell ms2-card7" onclick="location.href='{% url 'entradas_app:entrada_detalle' t.slug %}';" style="margin-bottom: 1em;">
+              <div class="ms2-card7__left">
+                <div class="ms2-card7__left__2">
+                  <h4 class="ms2-card7__left__2__title color-ct-c20" style="font-size:16px;">{{t.title}}</h4>
+                  <h5 class="ms2-card7__left__2__name color-ct-c20">{{t.user.email}}</h5>
+                </div>
+              </div>
+              <div class="ms2-card7__right">
+                <div class="ms2-card7__right__2">
+                  <h5 class="ms2-card7__right__2__date color-ct-c20">{{t.created|date:"d-m-Y"}}</h5>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include "includes/footer.html" %}
+{% endblock content %}

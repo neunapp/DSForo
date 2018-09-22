@@ -1,0 +1,54 @@
+{% extends "users/base_users.html" %}
+
+{% load staticfiles %}
+
+{% block title %} Registro en la Comunidad DS{% endblock %}
+
+{% block description %} Registro en DS - Comunidad de organizadores de torneos de fútbol {% endblock description %}
+
+{% block content %}
+  {% include "includes/header.html" %}
+  <div class="grid-x grid-margin-x align-center">
+    <form class="cell small-12 medium-7 large-4 ms-form1 grid-x grid-margin-x" style="margin-top:2em;" enctype="multipart/form-data" method="post">{% csrf_token %}
+      <h1 class="cell ms-h-h1">
+        <a class="color-ct-c4 ms-a-a1">Registro Comunidad DS</a>
+      </h1>
+      <div class="cell small-12">
+        <div class="ms-in-1">
+          <label class="ms-p-p1 color-ct-c1">Correo Electrónico:</label>
+          {{form.email}}
+          <i class="fas fa-envelope ms-in-1__icon"></i>
+        </div>
+      </div>
+      <div class="cell small-12">
+        <div class="ms-in-1">
+          <label class="ms-p-p1 color-ct-c1">Nombres:</label>
+          {{form.full_name}}
+          <i class="fas fa-address-card ms-in-1__icon"></i>
+        </div>
+      </div>
+      <div class="cell small-12">
+        <div class="ms-in-1">
+          <label class="ms-p-p1">Contraseña:</label>
+          {{form.password1}}
+          <i class="fas fa-unlock ms-in-1__icon"></i>
+        </div>
+      </div>
+      <div class="cell small-12">
+        <div class="cell ms-bt-bt1">
+          <button type="submit" class="ms-bt-bt1__btn color-bg-b10 color-ct-white">Registrar</button>
+        </div>
+      </div>
+
+      <div class="cell grid-x">
+        <p class="cell color-ct-c1 ms-p-p2 ms-c">¿Ya tienes una cuenta?</p>
+        <div class="cell">
+          <div class="cell ms-bt-bt1">
+            <a href="{% url 'users_app:login' %}" class="ms-bt-bt1__btn color-bg-b9 color-ct-white" style="display: block;text-align:center;">Iniciar Sesion</a>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  {% include "includes/footer.html" %}
+{% endblock content %}

@@ -2,12 +2,55 @@
 
 {% load staticfiles %}
 
-{% block title %} aqui va titulo{% endblock %}
+{% block title %} {{home.titleSeo}} {% endblock %}
 
-{% block description %} aqui va descripcion} {% endblock description %}
+{% block description %} {{home.descriptionSeo}} {% endblock description %}
 
-{% block tags %} aqui van los tags{% endblock tags %}
+{% block tags %} {% for t in home.tag.all %} {{t.name}},  {% endfor %} {% endblock tags %}
 
 {% block content %}
+  {% include "includes/header.html" %}
 
+  <div class="cuerpo">
+    {% for c in categorias  %}
+    <div class="cuerpo__blog-soporte">
+      <h5 class="cuerpo__blog-soporte__title color-ct-c20">{{c.name}}</h5>
+      <div class="grid-x grid-margin-x ">
+        {% for t in c.themes.all %}
+          <div class="cell small-12 medium-6 large-4" onclick="location.href='{% url 'entradas_app:entradas_por_tema' t.slug %}';">
+            <div class="ms2-card11">
+              <div class="ms2-card11__left">
+                <i class="{{t.icon}} ms2-card11__left__icon color-ct-c4"></i>
+              </div>
+              <div class="ms2-card11__right color-ct-c20">
+                <h3 class="ms2-card11__right__title">{{t.title}}</h3>
+                <p class="ms2-card11__right__content">{{t.description}}</p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+
+    <div class="cuerpo__blog-soporte">
+      <h5 class="cuerpo__blog-soporte__title color-ct-c20">SOPORTE</h5>
+      <div class="grid-x grid-margin-x ">
+        <div class="cell small-12 medium-6 large-4 ">
+          <div class="ms2-card11" onclick="location.href='{% url 'tiket_app:add_tiket' %}';">
+            <div class="ms2-card11__left">
+              <i class="fas fa-ticket-alt ms2-card11__left__icon color-ct-c4"></i>
+            </div>
+            <div class="ms2-card11__right color-ct-c20">
+              <h3 class="ms2-card11__right__title">Crear nuevo Ticket</h3>
+              <p class="ms2-card11__right__content">¿Quires hablar con soporte tecnico? Envianos un Ticket!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  {% include "includes/footer.html" %}
 {% endblock content %}

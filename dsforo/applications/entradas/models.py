@@ -15,6 +15,8 @@ from ckeditor_uploader.fields import RichTextUploadingField
 # import apps models
 from applications.miscelanea.models import Theme, Tag
 
+from .managers import EntryManager
+
 
 
 class Entry(TimeStampedModel):
@@ -34,8 +36,11 @@ class Entry(TimeStampedModel):
     comentary = models.BooleanField(default=True)
     tag = models.ManyToManyField(Tag)
     vists = models.IntegerField(default=0)
+    comments = models.IntegerField(default=0)
+    anulate = models.BooleanField(default=False)
     slug = models.SlugField(editable=False, max_length=300)
 
+    objects = EntryManager()
 
     class Meta:
         verbose_name = 'Entrada'

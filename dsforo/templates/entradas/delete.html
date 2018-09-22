@@ -1,0 +1,23 @@
+{% extends "entradas/base_entradas.html" %}
+
+{% load staticfiles %}
+
+{% block title %} Eliminar Tema {% endblock %}
+
+{% block content %}
+  {% include "includes/header.html" %}
+  <div class="grid-container" style="margin-top: 1em;">
+    <form action="{% url 'entradas_app:entrada_delete' object.id %}" method="POST" class="grid-x grid-margin-x align-center">{% csrf_token %}
+      <h6 class="cell ms-p-p1" style="text-align: center;">¿Desea eliminar el Tema: <strong>{{object.subject}}</strong>?</h6>
+      <div class="cell small-4 large-3 grid-x grid-margin-x align-center">
+        <div class="cell small-6 ms-bt-bt1">
+          <button type="submit" class="ms-bt-bt1__btn color-bg-b2 color-ct-white">Si</button>
+        </div>
+        <div class="cell small-6 ms-bt-bt1">
+          <button type="button" onclick="location.href='{% url 'users_app:panel' %}';" class="ms-bt-bt1__btn color-bg-b15 color-ct-white">No</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  {% include "includes/footer.html" %}
+{% endblock content %}

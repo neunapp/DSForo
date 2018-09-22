@@ -22,7 +22,7 @@ class LoginForm(forms.Form):
             attrs={
                 'placeholder': 'E-mail',
                 'name':'email',
-                'class': 'form-item__input',
+                'class': 'ms-in-1__txt color-ct-c1 color-bg-b7',
                 'autofocus': 'autofocus',
             }
         ),
@@ -33,7 +33,7 @@ class LoginForm(forms.Form):
         widget=forms.PasswordInput(
             attrs={
                 'placeholder': 'password',
-                'class': 'form-item__input',
+                'class': 'ms-in-1__txt color-ct-c1 color-bg-b7',
             }
         ),
     )
@@ -57,7 +57,7 @@ class UserAddForm(forms.ModelForm):
         widget=forms.PasswordInput(
             attrs={
                 'placeholder': 'contraseña nueva',
-                'class': 'form-item__input',
+                'class': 'ms-in-1__txt color-ct-c1 color-bg-b7',
             }
         ),
     )
@@ -66,80 +66,72 @@ class UserAddForm(forms.ModelForm):
         model = User
         fields = (
             'email',
+            'full_name',
         )
         #
         widgets = {
             'email': forms.EmailInput(
                 attrs={
                     'placeholder': 'E-mail',
-                    'class': 'form-item__input',
+                    'class': 'ms-in-1__txt color-ct-c1 color-bg-b7',
+                }
+            ),
+            'full_name': forms.TextInput(
+                attrs={
+                    'placeholder': 'Nombres',
+                    'class': 'ms-in-1__txt color-ct-c1 color-bg-b7',
                 }
             ),
         }
 
 
 
-class UserForm(forms.ModelForm):
-    """ formulario para usuarios """
+class UserUpdateForm(forms.ModelForm):
+    """ formulario para modificar usuarios """
+
+    password1 = forms.CharField(
+        label='contraseña',
+        required=False,
+        widget=forms.PasswordInput(
+            attrs={
+                'placeholder': 'contraseña actual',
+                'class': 'ms-in-1__txt color-ct-c1 color-bg-b7',
+            }
+        ),
+    )
+    password2 = forms.CharField(
+        label='contraseña nueva',
+        required=False,
+        widget=forms.PasswordInput(
+            attrs={
+                'placeholder': 'contraseña nueva',
+                'class': 'ms-in-1__txt color-ct-c1 color-bg-b7',
+            }
+        ),
+    )
 
     class Meta:
         model = User
         fields = (
-            'first_name',
-            'last_name',
+            'full_name',
             'image',
-            'gender',
-            'phone',
-            'date_birth',
         )
         #
         widgets = {
-            'first_name': forms.TextInput(
+            'full_name': forms.TextInput(
                 attrs={
                     'placeholder': 'Nombres',
-                    'class': 'form-item__input',
-                }
-            ),
-            'last_name': forms.TextInput(
-                attrs={
-                    'placeholder': 'Apellidos',
-                    'class': 'form-item__input',
-                }
-            ),
-            'phone': forms.TextInput(
-                attrs={
-                    'placeholder': 'Numero de telefono celular',
-                    'class': 'form-item__input',
-                }
-            ),
-            'date_birth': forms.DateInput(
-                attrs={
-                    'class': 'form-item__input',
-                    'type': 'date',
+                    'class': 'ms-in-1__txt color-ct-c1 color-bg-b7',
                 }
             ),
         }
     #
-    def clean_first_name(self):
-        first_name = self.cleaned_data['first_name']
-        if len(first_name) < 2:
+    def clean_full_name(self):
+        full_name = self.cleaned_data['full_name']
+        if len(full_name) < 2:
             msj = 'Ingrese un nombre correcto'
-            self.add_error('first_name', msj)
-        return first_name
-
-    def clean_last_name(self):
-        last_name = self.cleaned_data['last_name']
-        if len(last_name) < 2:
-            msj = 'Ingrese un apellido correcto'
-            self.add_error('last_name', msj)
-        return last_name
-
-    def clean_gender(self):
-        gender = self.cleaned_data['gender']
-        if gender == '':
-            msj = 'Seleccione esta opcion'
-            self.add_error('gender', msj)
-        return gender
+            self.add_error('full_name', msj)
+        return full_name
 
 
     def clean_image(self):
@@ -152,17 +144,18 @@ class UserForm(forms.ModelForm):
         return image
 
 
-    def clean_date_birth(self):
-        date_birth = self.cleaned_data['date_birth']
-        if date_birth != None:
-            end_date = timezone.now().date()
-            start_date = end_date - timedelta(days=30)
-            if date_birth > start_date:
-                msj = 'La fecha no es posible'
-                self.add_error('date_birth', msj)
-            else:
-                print('fecha correcta')
-        else :
-            msj = 'Ingrese una fecha valida'
-            self.add_error('date_birth', msj)
-        return date_birth
+class ResetForm(forms.Form):
+
+    email = forms.CharField(
+        label='Email',
+        max_length='100',
+        required=True,
+        widget=forms.EmailInput(
+            attrs={
+                'placeholder': 'E-mail',
+                'name':'email',
+                'class': 'ms-in-1__txt color-ct-c1 color-bg-b7',
+                'autofocus': 'autofocus',
+            }
+        ),
+    )

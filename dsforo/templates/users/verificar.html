@@ -1,0 +1,14 @@
+{% extends "users/base_users.html" %}
+
+{% load staticfiles %}
+
+{% block title %}Verificar usuario DSforo{% endblock %}
+
+{% block content %}
+  {% include "includes/header.html" %}
+  <div class="grid-x grid-margin-x align-center">
+    <h1 class="cell ms-h-h2">Usuario Verificado</h1>
+    <a class="cell ms-h-h3 color-ct-c4" href="/">Bienvenido a DS Foro</a>
+  </div>
+  {% include "includes/footer.html" %}
+{% endblock content %}

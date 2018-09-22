@@ -7,6 +7,8 @@ from django.template.defaultfilters import slugify
 from model_utils.models import TimeStampedModel
 #
 from datetime import datetime, timedelta
+#
+from .managers import CategoryManager
 
 
 class Category(TimeStampedModel):
@@ -16,6 +18,8 @@ class Category(TimeStampedModel):
 
     name = models.CharField('Nombre', max_length=100)
     icon = models.CharField('icono', max_length=30)
+
+    objects = CategoryManager()
 
     class Meta:
         verbose_name = 'Categoria'
@@ -30,10 +34,17 @@ class Theme(TimeStampedModel):
     modelo para los temas que pertenecen a un categoria
     """
 
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    TIPO_CHOICES = (
+        ('0', 'Usuario'),
+        ('1', 'Colaboracion'),
+        ('2', 'Administracion'),
+    )
+
+    category = models.ForeignKey(Category, related_name="themes", on_delete=models.CASCADE)
     seoName = models.CharField('Titulo para SEO', max_length=120)
     title = models.CharField('Titulo', max_length=100)
     description = models.TextField('Descripcion', blank=True)
+    tipo = models.CharField('Tipo de Tema', max_length=2, choices=TIPO_CHOICES)
     icon = models.CharField('class icono', blank=True, max_length=30)
     vists = models.IntegerField(default=0)
     slug = models.SlugField(editable=False, max_length=300)

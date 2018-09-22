@@ -1,0 +1,90 @@
+<!-- head para PC -->
+{% load  staticfiles %}
+<header>
+  <div class="ms-header1 color-bg-b11">
+    <div class="ms-header1__left">
+      <a href="/" class="ms-header1__logo color-ct-white">
+        <span class="ms-header1__logo__a">ForoDS</span>
+      </a>
+       <form method="get" action="{% url 'entradas_app:entry_search' %}" class="ms-header1__search">{% csrf_token %}
+        <i class="fas fa-search ms-header1__search__icon"></i>
+        <input type="text" id="kword" name="kword" class="ms-header1__search__input" placeholder="Buscar un Tema en el Foro">
+      </form>
+    </div>
+    <div class="ms-header1__right">
+      {% if user.is_active %}
+        <a href="https://payinti.com/" target="_blank" class="ms-header1__link1 color-bg-b18 color-ct-white">
+          <i class="fas fa-cart-plus ms-header1__link1__i"></i>
+          <span>TIENDA</span>
+        </a>
+        <a href="{% url 'users_app:panel' %}" class="ms-header1__link1 color-bg-b15 color-ct-white">
+          <span>{{user.email|truncatechars:12}}</span>
+        </a>
+        {% if user.image %}
+          <div onclick="location.href='{% url 'users_app:panel' %}';" class="ms-ul4">
+            <img src="{{user.image.url}}" class="ms-ul4__img">
+          </div>
+        {% else %}
+          <div onclick="location.href='{% url 'users_app:panel' %}';" class="ms-ul4">
+            <img src="{% static 'img/user.png' %}" class="ms-ul4__img">
+          </div>
+        {% endif %}
+      {% else %}
+        <a href="#" class="ms-header1__link color-ct-white">
+          <i class="fas fa-futbol ms-header1__link__i"></i>
+          <span>¿Qué es DS?</span>
+        </a>
+        <a href="https://payinti.com/" target="_blank" class="ms-header1__link1 color-bg-b18 color-ct-white">
+          <i class="fas fa-cart-plus ms-header1__link1__i"></i>
+          <span>TIENDA</span>
+        </a>
+        <a href="{% url 'users_app:login' %}" class="ms-header1__link1 color-bg-b17 color-ct-white">
+          <i class="fas fa-user ms-header1__link1__i"></i>
+          <span>INGRESAR</span>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+  <!-- head para movil -->
+  <div class="ms-header3">
+    <div class="ms-header3__head color-bg-b10">
+      <a href="https://payinti.com/" target="_blank" class="ms-header3__head__item color-ct-white">
+        <i class="fas fa-shopping-cart ms-header3__icon"></i>
+        <span>Tienda</span>
+      </a>
+      <a href="/" class="ms-header3__head__item color-ct-white">
+        Foro DS
+      </a>
+      {% if user.is_active %}
+        {% if user.image %}
+          <div onclick="location.href='{% url 'users_app:panel' %}';" class="ms-ul4">
+            <img src="{{user.image.url}}" class="ms-ul4__img">
+          </div>
+        {% else %}
+          <div onclick="location.href='{% url 'users_app:panel' %}';" class="ms-ul4">
+            <img src="{% static 'img/user.png' %}" class="ms-ul4__img">
+          </div>
+        {% endif %}
+      {% else %}
+        <a href="{% url 'users_app:login' %}" class="ms-header3__head__item color-ct-white">
+          <i class="fas fa-user ms-header3__icon"></i>
+          <span>Entrar</span>
+        </a>
+      {% endif %}
+    </div>
+    <div class="ms-header3__ctrls">
+      <i class="fas fa-bars ms-header3__ctrls__icon color-ct-c15"></i>
+      <form method="get" action="{% url 'entradas_app:entry_search' %}" class="ms-in-2">{% csrf_token %}
+        <i class="fas fa-search ms-in-2__icon color-ct-c19"></i>
+        <input id="kword" name="kword" class="ms-in-2__txt" placeholder="Buscar un Tema en el Foro">
+      </form>
+    </div>
+  </div>
+  <!-- submenu  -->
+  <div class="ms2-header2 color-bg-b22 color-ct-c20">
+    <h2 class="ms2-header2__principal "> DS</h2>
+    <ul class="ms2-header2__urls">
+        <li class="ms2-header2__urls__1" onclick="location.href='https://deporstart.com/'">Organizar Torneo</li>
+    </ul>
+  </div>
+</header>

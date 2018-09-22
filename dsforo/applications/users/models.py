@@ -18,8 +18,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('F', 'Femenino'),
     )
     email = models.EmailField('correo electronico', unique=True)
-    first_name = models.CharField('nombres', max_length=50, blank=True)
-    last_name = models.CharField('apellidos', max_length=50, blank=True)
+    full_name = models.CharField('nombres completos', max_length=150, blank=True)
     avatar = models.URLField(
         'foto',
         blank=True,
@@ -28,8 +27,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     phone = models.CharField('telefono', max_length=50, blank=True, null=True)
     gender = models.CharField('sexo', max_length=1, choices=GENDER_CHOICES, blank=True)
     date_birth = models.DateField(blank=True, null=True)
-    addresse = models.CharField('direccion',blank=True, max_length=100)
-
+    addresse = models.CharField('direccion', blank=True, max_length=100)
+    verificado = models.BooleanField(default=False)
+    codregistro = models.CharField(default='000003', max_length=6)
     objects = UserManager()
 
     is_active = models.BooleanField(default=True)

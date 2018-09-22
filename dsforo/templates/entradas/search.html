@@ -1,0 +1,52 @@
+{% extends "home/base_home.html" %}
+
+{% load staticfiles %}
+
+{% block title %} {{tema.seoName}} {% endblock %}
+
+{% block description %} {{tema.description}} {% endblock description %}
+
+{% block content %}
+  {% include "includes/header.html" %}
+
+  <div class="grid-container">
+    <div class="grid-x">
+      {% for t in entradas  %}
+        <div class="cell ms2-card7" onclick="location.href='{% url 'entradas_app:entrada_detalle' t.slug %}';">
+          <div class="ms2-card7__left">
+            <div class="ms2-card7__left__1">
+              {% if t.user.image %}
+                <img src="{{t.user.image.url}}" class="ms2-card7__left__1__item">
+              {% else %}
+                <img src="{% static 'img/user.png' %}" class="ms2-card7__left__1__item">
+              {% endif %}
+            </div>
+            <div class="ms2-card7__left__2">
+              <h4 class="ms2-card7__left__2__title color-ct-c20 ">{{t.title}}</h4>
+              <h5 class="ms2-card7__left__2__name color-ct-c20">{{t.user.email}}</h5>
+            </div>
+          </div>
+          <div class="ms2-card7__right">
+            {% if tema.tipo == '0' %}
+              <div class="ms2-card7__right__1">
+                <i class="far fa-comment ms2-card7__right__1__icon color-ct-c9 "></i>
+                <h5 class="ms2-card7__right__1__num color-ct-c20">{{t.comments}}</h5>
+              </div>
+            {% else %}
+              <div class="ms2-card7__right__1">
+                <i class="fas fa-chart-area ms2-card7__right__1__icon color-ct-c9 "></i>
+                <h5 class="ms2-card7__right__1__num color-ct-c20">{{t.vists}}</h5>
+              </div>
+            {% endif %}
+            <div class="ms2-card7__right__2">
+              <h5 class="ms2-card7__right__2__date color-ct-c20">{{t.created|date:"M d, Y"}}</h5>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <h3 class="cell ms-p-p4">No se han encontrado resultados :(</h3>
+      {% endfor %}
+    </div>
+  </div>
+  {% include "includes/footer.html" %}
+{% endblock content %}

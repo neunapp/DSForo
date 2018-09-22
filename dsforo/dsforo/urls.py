@@ -20,16 +20,18 @@ from applications.home import views
 urlpatterns_main = [
     url(r'^admin/', admin.site.urls),
     #urls para home
-    # url(r'^', include('applications.home.urls')),
+    url(r'^', include('applications.home.urls')),
     # #urls para cancha
-    # url(r'^', include('applications.cancha.urls')),
+    url(r'^', include('applications.entradas.urls')),
     # #urls para zona
-    # url(r'^', include('applications.zona.urls')),
+    url(r'^', include('applications.tiket.urls')),
     # #urls para museo
     # url(r'^', include('applications.museo.urls')),
     # #urls para users
-    # url(r'^', include('applications.users.urls')),
+    url(r'^', include('applications.users.urls')),
 
+    #
+    url(r'^captcha/', include('captcha.urls')),
     #url para editor de texto
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

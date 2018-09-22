@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% load  staticfiles %}
+
+{% block css %}
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_PE">
+  <meta property="og:site_name" content="Deporstart">
+  <meta property="og:url" content="https://foro.deporstart.com/">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}?rand=23423423">
+{% endblock css %}
+
+{% block js %}
+  {% load static %}
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'ckeditor-init.js' %}"></script>
+  <script src="{% static 'ckeditor/ckeditor.js' %}"></script>
+  <script src="{% static 'js/foundation.min.js' %}"></script>
+  <script src="{% static 'js/app.js' %}"></script>
+  <script src="{% static 'js/fontawesome-all.min.js' %}"></script>
+  <script src="{% static 'js/scrips.js' %}"></script>
+
+{% endblock js %}
