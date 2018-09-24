@@ -43,11 +43,19 @@ CKEDITOR_CONFIGS = {
         'toolbar_Custom': [
             ['Bold', 'Italic', 'Underline'],
             ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-            ['Link', 'Unlink', 'TextColor', 'FontSize'],
-            ['RemoveFormat', 'Source']
+            ['Unlink', 'TextColor', 'FontSize'],
+            ['Smiley', 'Image', 'Iframe'],
+            ['RemoveFormat', 'Source'],
         ],
         'height': '100%',
         'width': '100%',
+        'youtube_responsive': True,
+        'youtube_disabled_fields': [
+            'txtWidth',
+            'txtHeight',
+            'txtEmbed',
+        ],
+        'extraPlugins': ','.join(['image2',]),
     },
 }
 
