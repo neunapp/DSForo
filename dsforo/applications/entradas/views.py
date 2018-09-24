@@ -70,6 +70,8 @@ class EntryDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(EntryDetailView, self).get_context_data(**kwargs)
         entrada = self.get_object()
+        entrada.vists = entrada.vists + 1
+        entrada.save()
         comentarios = []
         if entrada.theme.tipo == '0':
             # cargamos lista de ultimos comentarios
