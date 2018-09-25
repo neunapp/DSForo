@@ -14,13 +14,14 @@ from django.views.generic import (
     TemplateView,
     View,
 )
+from django.views.generic.edit import FormMixin
 
 #
 from applications.miscelanea.models import Theme
 # import local app
 from .models import Entry, Comentary
 #
-from .forms import EntryAddForm
+from .forms import EntryAddForm, ComentaryForm
 #
 
 
@@ -58,10 +59,12 @@ class ListaEntradasView(ListView):
         return queryset
 
 
-class EntryDetailView(DetailView):
+class EntryDetailView(FormMixin, DetailView):
     """ vista para ver una entrada """
     model = Entry
     template_name = 'entradas/ver.html'
+    form_class = ComentaryForm
+    success_url = '.'
 
     def get_queryset(self):
         qs = super(EntryDetailView, self).get_queryset().filter(anulate=False)
@@ -78,6 +81,26 @@ class EntryDetailView(DetailView):
             comentarios = Comentary.objects.filter(entry__pk=entrada.pk)[:20]
         context['comentarios'] = comentarios
         return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        entrada = self.get_object()
+        usuario = self.request.user
+        comentario = form.cleaned_data['comentario']
+        Comentary(
+            user=usuario,
+            entry=entrada,
+            content=comentario,
+            calification=1,
+        ).save()
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class EntryCreateView(LoginRequiredMixin, CreateView):

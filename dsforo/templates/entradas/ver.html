@@ -42,7 +42,7 @@
         {% if entry.theme.tipo == '0' %}
           <div class="ms2-bt3">
             <!-- <button class="ms2-bt3__icon"><i class="fas fa-shopping-cart"></i></button> -->
-            <button class="ms2-bt3__button  color-ct-c20">
+            <button class="ms2-bt3__button  color-ct-c20" data-open="addForm">
               <i class="far fa-comment-alt ms2-bt3__button__icon color-ct-c11"></i>
               <p class="ms2-bt3__button__btn">COMENTAR</p>
             </button>
@@ -51,49 +51,74 @@
       </div>
     </div>
 
-    {% for c in comentarios  %}
-      <div class="ms2-card9 ">
-        <div class="ms2-card9__body color-bg-b22">
-          <div class="ms2-card9__body__above">
-            <div class="ms2-card9__body__above__left">
-              {% if entry.user.image %}
-                <img src="{{c.user.image.url}}" class="ms2-card7__left__1__item">
-              {% else %}
-                <img src="{% static 'img/user.png' %}" class="ms2-card7__left__1__item">
-              {% endif %}
-            </div>
-            <div class="ms2-card9__body__above__right">
-              <div class="ms2-card9__body__above__right__1">
-                {% if entry.user.full_name|length > 4 %}
-                  <h5 class="ms2-card9__body__above__right__1__name color-ct-c1">{{c.user.full_name}}</h5>
-                {% else %}
-                  <h5 class="ms2-card9__body__above__right__1__name color-ct-c1">{{c.user.email}}</h5>
-                {% endif %}
-                <h3 class="ms2-card9__body__above__right__1__date color-ct-c19">{{c.created|date:"d/m/y"}}</h3>
-              </div>
-              <div class="ms2-card9__body__above__right__2">
-                <p class="ms2-card9__body__above__right__2__text color-ct-c20">{{c.content|safe}}</p>
+    <div class="grid-x">
+      <div class="reveal cell small-12 medium-8 large-3" id="addForm" data-reveal>
+        <div class="cell grid-x align-center">
+          <form class="cell grid-x align-center" enctype="multipart/form-data" method="post">{% csrf_token %}
+            <div class="cell small-12">
+              <div class="ms-in-1">
+                <label class="ms-p-p1">Comentario:</label>
+                {{form.comentario}}
               </div>
             </div>
-          </div>
-          <div class="ms2-bt3">
-            <!-- <button class="ms2-bt3__icon"><i class="fas fa-shopping-cart"></i></button> -->
-            <button class="ms2-bt3__button  color-ct-c20">
-              <i class="far fa-comment-alt ms2-bt3__button__icon color-ct-c11"></i>
-              <p class="ms2-bt3__button__btn" >RESPONDER</p>
-            </button>
-          </div>
-          <div class="ms2-bt4">
-            {% comment 'en reserva se contruye' %}
-              <button class="ms2-bt4__button  color-ct-c21">
-                <p class="ms2-bt4__button__btn " >Ver las N respuestas</p>
-                <i class="fas fa-angle-down ms2-bt4__button__icon"></i>
-              </button>
-            {% endcomment %}
-          </div>
+            <div class="cell small-12">
+              <div class="cell ms-bt-bt1">
+                <button type="submit" class="ms-bt-bt1__btn color-bg-b10 color-ct-white">Publicar</button>
+              </div>
+            </div>
+          </form>
+          <button class="close-button" data-close aria-label="Close modal" type="button">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
       </div>
-    {% endfor %}
+    </div>
+
+    <div class="grid-x grid-margin-x">
+      {% for c in comentarios  %}
+        <div class="cell ms2-card9">
+          <div class="ms2-card9__body color-bg-b22" style="width: 100%;">
+            <div class="ms2-card9__body__above">
+              <div class="ms2-card9__body__above__left" style="width: 20%;">
+                {% if entry.user.image %}
+                  <img src="{{c.user.image.url}}" class="ms2-card7__left__1__item">
+                {% else %}
+                  <img src="{% static 'img/user.png' %}" class="ms2-card7__left__1__item">
+                {% endif %}
+              </div>
+              <div class="ms2-card9__body__above__right">
+                <div class="ms2-card9__body__above__right__1">
+                  {% if entry.user.full_name|length > 4 %}
+                    <h5 class="ms2-card9__body__above__right__1__name color-ct-c1">{{c.user.full_name}}</h5>
+                  {% else %}
+                    <h5 class="ms2-card9__body__above__right__1__name color-ct-c1">{{c.user.email}}</h5>
+                  {% endif %}
+                  <h3 class="ms2-card9__body__above__right__1__date color-ct-c19">{{c.created|date:"d/m/y"}}</h3>
+                </div>
+                <div class="ms2-card9__body__above__right__2">
+                  <p class="ms2-card9__body__above__right__2__text color-ct-c20">{{c.content|safe}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="ms2-bt3">
+              <!-- <button class="ms2-bt3__icon"><i class="fas fa-shopping-cart"></i></button> -->
+              <button class="ms2-bt3__button  color-ct-c20">
+                <i class="far fa-comment-alt ms2-bt3__button__icon color-ct-c11"></i>
+                <p class="ms2-bt3__button__btn" >RESPONDER</p>
+              </button>
+            </div>
+            <div class="ms2-bt4">
+              {% comment 'en reserva se contruye' %}
+                <button class="ms2-bt4__button  color-ct-c21">
+                  <p class="ms2-bt4__button__btn " >Ver las N respuestas</p>
+                  <i class="fas fa-angle-down ms2-bt4__button__icon"></i>
+                </button>
+              {% endcomment %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
   </div>
 
   {% include "includes/footer.html" %}

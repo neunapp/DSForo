@@ -36,3 +36,8 @@ class EntryAddForm(forms.ModelForm):
                 }
             ),
         }
+
+class ComentaryForm(forms.Form):
+    """ Form para registrar comentarios de una publicacion """
+
+    comentario = forms.CharField(widget=forms.Textarea(attrs={'rows': '2'}))
