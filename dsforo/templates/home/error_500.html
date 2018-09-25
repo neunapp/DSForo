@@ -1,12 +1,19 @@
-{% extends "base.html" %}
+{% extends "home/base_home.html" %}
 
-{% load  staticfiles %}
-
-{% block css %}
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="es_PE">
-  
-{% endblock css %}
+{% load staticfiles %}
 
 {% block content %}
+  {% include "includes/header.html" %}
+
+  <div class="grid-container">
+    <div class="grid-x grid-margin-x align-center" style="margin-top: 3em;">
+      <div class="cell small-12 large-6">
+          <div class="ms-card3">
+            <h3 class="ms-card3__title color-ct-c2">Ha ocurrido un error con la plataforma</h3>
+            <p class="ms-card3__text color-ct-c15">Hemos encontrado un problema con la plataforma, por favor intenta vovler al inicio de la pagina o reporta el problema para que los solucionemos. </p>
+          </div>
+        </div>
+    </div>
+  </div>
+
 {% endblock content %}

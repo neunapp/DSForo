@@ -55,7 +55,7 @@ class Theme(TimeStampedModel):
 
     def __str__(self):
         return self.title
-
+    
     def save(self, *args, **kwargs):
         if not self.id:
             # calculamos el total de segundos de la hora actual

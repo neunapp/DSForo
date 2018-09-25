@@ -4,6 +4,7 @@ from django.db import models
 from django.conf import settings
 from django.utils.encoding import python_2_unicode_compatible
 from django.template.defaultfilters import slugify
+from django.urls import reverse_lazy, reverse
 
 # standard library
 from datetime import timedelta, datetime
@@ -48,6 +49,14 @@ class Entry(TimeStampedModel):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse_lazy(
+            'entradas_app:entrada_detalle',
+            kwargs={
+                'slug':self.slug,
+            }
+        )
 
     def save(self, *args, **kwargs):
         if not self.id:

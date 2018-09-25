@@ -8,12 +8,10 @@ from django.contrib.sitemaps.views import sitemap
 #
 from django.conf.urls import handler404, handler500
 #
-# from applications.home.sitemap import (
-#     CanchaSitemap,
-#     DistritoSitemap,
-#     ZoneSitemap,
-#     Sitemap
-# )
+from applications.home.sitemap import (
+    EntrySitemap,
+    Sitemap
+)
 #
 from applications.home import views
 
@@ -38,28 +36,24 @@ urlpatterns_main = [
 
 
 #objeto site map que genera xml
-# sitemaps = {
-#     'site':Sitemap(
-#         [
-#             'home_app:index'
-#         ]
-#     ),
-#     'cancha': CanchaSitemap,
-#     'zona': ZoneSitemap,
-#     'distrito': DistritoSitemap,
-# }
-#
-# #urls para sitemap
-# urlpatterns_sitemap = [
-#     #sitemap
-#     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
-#     name='django.contrib.sitemaps.views.sitemap')
-# ]
+sitemaps = {
+    'site':Sitemap(
+        [
+            'home_app:index'
+        ]
+    ),
+    'entradas': EntrySitemap,
+}
+
+#urls para sitemap
+urlpatterns_sitemap = [
+    #sitemap
+    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
+    name='django.contrib.sitemaps.views.sitemap')
+]
 
 #url prncipal
-# urlpatterns = urlpatterns_main + urlpatterns_sitemap
+urlpatterns = urlpatterns_main + urlpatterns_sitemap
 
-urlpatterns = urlpatterns_main
-
-# handler404 = views.Error404View.as_view()
-# handler500 = views.Error500View.as_view()
+handler404 = views.Error404View.as_view()
+handler500 = views.Error500View.as_view()

@@ -8,6 +8,17 @@
   <meta property="og:site_name" content="Deporstart">
   <meta property="og:url" content="https://foro.deporstart.com/">
   <link rel="stylesheet" href="{% static 'css/styles.css' %}?rand=23423423">
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-113230003-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-113230003-3');
+  </script>
+
 {% endblock css %}
 
 {% block js %}

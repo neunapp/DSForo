@@ -31,3 +31,10 @@ class HomeView(TemplateView):
         context['home'] = Home.objects.all()[0]
         context['categorias'] = Category.objects.prefetch_related('themes')
         return context
+
+
+class Error404View(TemplateView):
+    template_name = 'home/error_404.html'
+
+class Error500View(TemplateView):
+    template_name = 'home/error_500.html'
