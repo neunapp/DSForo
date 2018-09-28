@@ -1,0 +1,47 @@
+{% extends "entradas/base_entradas.html" %}
+
+{% load staticfiles %}
+
+{% block title %} {{news.title}} - DSNoticias{% endblock %}
+
+{% block description %} {{news.resume}} {% endblock description %}
+
+{% block tags %} {% for t in news.tag.all %} {{t.name}},  {% endfor %} {% endblock tags %}
+
+{% block content %}
+  {% include "includes/header.html" %}
+
+  <div class="grid-container">
+    <div class="ms2-card8">
+      <div class="ms2-card8__header">
+        <h2 class="ms2-card8__header__title color-ct-c20">{{news.title}}</h2>
+      </div>
+      <div class="ms2-card8__body">
+        <div class="ms2-card8__body__above">
+          <div class="ms2-card8__body__above__left">
+            {% if news.user.image %}
+              <img src="{{news.user.image.url}}" class="ms2-card7__left__1__item">
+            {% else %}
+              <img src="{% static 'img/user.png' %}" class="ms2-card7__left__1__item">
+            {% endif %}
+          </div>
+          <div class="ms2-card8__body__above__right">
+            <div class="ms2-card8__body__above__right__1">
+              {% if news.user.full_name|length > 4 %}
+                <h5 class="ms2-card8__body__above__right__1__name color-ct-c1">{{news.user.full_name}}</h5>
+              {% else %}
+                <h5 class="ms2-card8__body__above__right__1__name color-ct-c1">{{news.user.email}}</h5>
+              {% endif %}
+              <h3 class="ms2-card8__body__above__right__1__date color-ct-c19">{{news.created|date:"D d M Y"}}</h3>
+            </div>
+            <div class="ms2-card8__body__above__right__2">
+                <p class="ms2-card8__body__above__right__2__text color-ct-c20">{{news.content|safe}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% include "includes/footer.html" %}
+{% endblock content %}

@@ -32,4 +32,15 @@ urlpatterns = [
         views.EntryDeleteView.as_view(),
         name='entrada_delete'
     ),
+    #url para pantalla de inicio
+    url(r'^dsnoticias/noticias-deportivas-de-futbol-peruano/$',
+        views.ListaNewsView.as_view(),
+        name='news_list'
+    ),
+    #
+    url(
+        r'^dsnoticias/detalle/(?P<slug>[-\w]+)$',
+        views.NewsDetailView.as_view(),
+        name='noticias_detalle'
+    ),
 ]

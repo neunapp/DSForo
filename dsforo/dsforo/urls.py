@@ -10,6 +10,7 @@ from django.conf.urls import handler404, handler500
 #
 from applications.home.sitemap import (
     EntrySitemap,
+    NewsSitemap,
     Sitemap
 )
 #
@@ -43,6 +44,7 @@ sitemaps = {
         ]
     ),
     'entradas': EntrySitemap,
+    'noticias': NewsSitemap,
 }
 
 #urls para sitemap

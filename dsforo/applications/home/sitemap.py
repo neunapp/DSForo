@@ -3,7 +3,7 @@ from django.urls import reverse_lazy, reverse
 from django.contrib.sitemaps import Sitemap
 import datetime
 #import models
-from applications.entradas.models import Entry
+from applications.entradas.models import News, Entry
 from applications.miscelanea.models import Category, Theme
 
 class EntrySitemap(Sitemap):
@@ -14,6 +14,19 @@ class EntrySitemap(Sitemap):
 
     def items(self):
        return Entry.objects.filter(anulate=False)
+
+    def lastmod(self, obj):
+        return obj.created
+
+
+class NewsSitemap(Sitemap):
+    """ sitemap para Entry """
+    changefreq = "weekly"
+    priority = 0.8
+    protocol = 'https'
+
+    def items(self):
+       return News.objects.filter(anulate=False)
 
     def lastmod(self, obj):
         return obj.created

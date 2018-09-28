@@ -19,7 +19,7 @@ from django.views.generic.edit import FormMixin
 #
 from applications.miscelanea.models import Theme
 # import local app
-from .models import Entry, Comentary
+from .models import Entry, Comentary, News
 #
 from .forms import EntryAddForm, ComentaryForm
 #
@@ -149,3 +149,35 @@ class EntryDeleteView(LoginRequiredMixin, DeleteView):
         success_url = self.get_success_url()
 
         return HttpResponseRedirect(success_url)
+
+
+class ListaNewsView(ListView):
+    """ listamos las noticias """
+
+    context_object_name = 'news'
+    template_name = 'entradas/news.html'
+
+    def get_queryset(self):
+        #recuperamos el valor por GET
+        queryset = News.objects.filter(
+            published=True,
+            anulate=False,
+        ).order_by('-vists').order_by('-created')
+        return queryset
+
+
+class NewsDetailView(DetailView):
+    """ ver una noticia """
+    model = News
+    template_name = 'entradas/vernews.html'
+
+    def get_queryset(self):
+        qs = super(NewsDetailView, self).get_queryset().filter(anulate=False, published=True)
+        return qs
+
+    def get_context_data(self, **kwargs):
+        context = super(NewsDetailView, self).get_context_data(**kwargs)
+        news = self.get_object()
+        news.vists = news.vists + 1
+        news.save()
+        return context

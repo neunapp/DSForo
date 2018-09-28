@@ -1,0 +1,39 @@
+{% extends "home/base_home.html" %}
+
+{% load staticfiles %}
+
+{% block title %} DSNoticias - Noticias de deportes Peru {% endblock %}
+
+{% block description %} DSNoticias pertenece a DeporStart, un organización que promueve el deporte. Aqui encontraras noticias positivas relacionadas al deporte.  {% endblock description %}
+
+{% block tags %} noticias deportes peru futbol, noticias de deportes del peru, noticias futbol peru {% endblock tags %}
+
+{% block content %}
+  {% include "includes/header.html" %}
+
+  <div class="grid-container">
+    <div class="grid-x">
+      <h3 class="cell ms-h-h2 color-ct-c4" style="margin-top: 10px;">Articulos publicados en DSNoticias</h3>
+      {% for t in news  %}
+        <div class="cell ms2-card7" onclick="location.href='{% url 'entradas_app:noticias_detalle' t.slug %}';">
+          <div class="ms2-card7__left">
+            <div class="ms2-card7__left__2">
+              <h4 class="ms2-card7__left__2__title color-ct-c20 ">{{t.title}}</h4>
+              <h5 class="ms2-card7__left__2__name color-ct-c20">{{t.resume|truncatechars:100}}</h5>
+            </div>
+          </div>
+          <div class="ms2-card7__right">
+            <div class="ms2-card7__right__1">
+              <i class="fas fa-chart-area ms2-card7__right__1__icon color-ct-c9 "></i>
+              <h5 class="ms2-card7__right__1__num color-ct-c20">{{t.vists}}</h5>
+            </div>
+            <div class="ms2-card7__right__2">
+              <h5 class="ms2-card7__right__2__date color-ct-c20">{{t.created|date:"M d, Y"}}</h5>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% include "includes/footer.html" %}
+{% endblock content %}
