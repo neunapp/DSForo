@@ -36,6 +36,28 @@ CKEDITOR_CONFIGS = {
             ['Smiley', 'Image', 'Iframe'],
             ['RemoveFormat', 'Source'],
         ],
+        'stylesSet': [
+            {
+                'name': 'Imagen Rectangular',
+                'element': 'img',
+                'attributes': {'class': 'ms-img-mov1-rectangle'},
+            },
+            {
+                'name': 'Imagen Cuadrada',
+                'element': 'img',
+                'attributes': {'class': 'ms-img-mov1-square'},
+            },
+            {
+                'name': 'Imagen Pequeña',
+                'element': 'img',
+                'attributes': {'class': 'ms-img-mov1-small'},
+            },
+            {
+                'name': 'Video Normal',
+                'element': 'img',
+                'attributes': {'class': 'ms-video-mov1-normal'},
+            },
+        ],
         'height': '100%',
         'width': '100%',
         'linkShowAdvancedTab': False,
